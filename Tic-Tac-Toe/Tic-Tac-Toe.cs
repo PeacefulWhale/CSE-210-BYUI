@@ -6,12 +6,12 @@ namespace TicTacToe
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello. Please enter the board size (2-64):");
+            Console.WriteLine("Hello. Please enter the board size (2-64).");
             string input = Console.ReadLine();
             int board_size = Math.Clamp(Convert.ToInt32(input), 2, 64);
             // Max players is based off the fact that if you have too many players literally no one can win.
             // I am lazy, and I will just set the max player size as the board size, as that allows each player to create their own winning score.
-            Console.WriteLine("Thank you, please enter the number of players (2-{0})", board_size);
+            Console.WriteLine("Thank you, please enter the number of players (2-{0}).", board_size);
             input = Console.ReadLine();
             int player_count = Math.Clamp(Convert.ToInt32(input), 2, board_size);
             // Play loop.
@@ -49,7 +49,7 @@ namespace TicTacToe
                         Console.Clear();
                         main_board.print_board();
                         main_board.set_color(turn % player_count);
-                        Console.WriteLine("Congratulations Player {0} for winning!", turn % player_count);
+                        Console.WriteLine("Congratulations to Player {0} for winning!", turn % player_count);
                         Console.ResetColor();
                         break;
                     }
