@@ -61,31 +61,19 @@ namespace TicTacToe
 
         private bool check_board(int _x, int _y, int player)
         {
-            // Check Left.
+            // Check Left / Right.
             char symbol = player_symbols[player];
             int in_line = 1;
             int x, y;
             for (x = _x - 1; x >= 0 && board[x, _y] == symbol; x--) { in_line++; }
-            if (in_line >= win_length)
-            {
-                return true;
-            }
-            // Check Right.
-            in_line = 1;
             for (x = _x + 1; x < size && board[x, _y] == symbol; x++) { in_line++; }
             if (in_line >= win_length)
             {
                 return true;
             }
-            // Check Up.
+            // Check Up / Down.
             in_line = 1;
             for (y = _y - 1; y >= 0 && board[_x, y] == symbol; y--) { in_line++; }
-            if (in_line >= win_length)
-            {
-                return true;
-            }
-            // Check Down.
-            in_line = 1;
             for (y = _y + 1; y < size && board[_x, y] == symbol; y++) { in_line++; }
             if (in_line >= win_length)
             {
