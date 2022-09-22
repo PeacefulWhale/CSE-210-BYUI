@@ -32,21 +32,21 @@ namespace TicTacToe
             }
 
             // Calculate how much padding we need.
-            padding = 0;
+            padding = 1;
             for (int i = size * size; i >= 10; i /= 10)
             {
                 padding += 1;
             }
 
             // This just generates the middle line, which are just a bit wacky.
-            string pad = new string('-', padding + 1);
+            string pad = new string('-', padding);
             string temp = string.Format("{0}+", pad);
             middle_line = "";
             for (int i = 0; i < size - 1; i++)
             {
                 middle_line += temp;
             }
-            middle_line += "-";
+            middle_line += new string('-', padding);
         }
 
         public bool play_turn(int square, int player)
@@ -157,13 +157,13 @@ namespace TicTacToe
                         // Print the cell number.
                         // I used to have this in one very long line of code, but I broke it up so it's more human readable.
                         string num = (x + (y * size)).ToString();
-                        float pad = (float)padding - (float)num.Length / 2;
+                        float pad = ((float)padding - (float)num.Length) / 2;
                         string left_pad = "";
                         string right_pad = "";
                         if (pad > 0)
                         {
-                            left_pad += new string(' ', (int)Math.Ceiling(pad));
-                            right_pad += new string(' ', (int)Math.Floor(pad));
+                            left_pad += new string(' ', (int)Math.Floor(pad));
+                            right_pad += new string(' ', (int)Math.Ceiling(pad));
                         }
                         cell_string = string.Format("{1}{0}{2}", num, left_pad, right_pad);
                     }
