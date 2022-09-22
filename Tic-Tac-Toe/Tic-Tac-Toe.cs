@@ -14,12 +14,23 @@ namespace TicTacToe
             Console.WriteLine("Thank you, please enter the number of players (2-{0}).", board_size);
             input = Console.ReadLine();
             int player_count = Math.Clamp(Convert.ToInt32(input), 2, board_size);
+            Console.WriteLine("Thank you, please enter the minium line length to win (2-{0})", board_size);
+            input = Console.ReadLine();
+            int win_length;
+            if (Convert.ToInt32(input) == 0)
+            {
+                win_length = board_size;
+            }
+            else
+            {
+                win_length = Math.Clamp(Convert.ToInt32(input), 2, board_size);
+            }
             // Play loop.
             while (true)
             {
                 // Create the board.
-                Board main_board = new Board(board_size, player_count);
-                int turn = 1;
+                Board main_board = new Board(board_size, player_count, win_length);
+                int turn = 0;
                 // Game loop.
                 while (true)
                 {

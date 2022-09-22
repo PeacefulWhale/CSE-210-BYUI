@@ -6,6 +6,7 @@ namespace TicTacToe
     {
         private static int size;
         private static int players;
+        private static int win_length;
         private static char[,] board;
         private static int padding;
         private static string middle_line;
@@ -20,10 +21,11 @@ namespace TicTacToe
         };
         private const int player_colors = 15;
 
-        public Board(int _size, int _players)
+        public Board(int _size, int _players, int _win_length)
         {
             size = _size;
             players = _players;
+            win_length = _win_length;
             board = new char[size, size];
             // Initialize our board.
             for (int i = 0; i < size * size; i++)
@@ -54,64 +56,100 @@ namespace TicTacToe
             board[square % size, square / size] = player_symbols[player];
             int x = square % size;
             int y = square / size;
-            // Check horizontal.
-            bool game_won = true;
-            for (int i = 0; i < size; i++)
+            return check_board(x, y, player);
+        }
+
+        private bool check_board(int _x, int _y, int player)
+        {
+            // Check Left.
+            char symbol = player_symbols[player];
+            int in_line = 1;
+            int x, y;
+            for (x = _x - 1; x >= 0 && board[x, _y] == symbol; x--) { in_line++; }
+            if (in_line >= win_length)
             {
-                if (board[x, i] != player_symbols[player])
+                return true;
+            }
+            // Check Right.
+            in_line = 1;
+            for (x = _x + 1; x < size && board[x, _y] == symbol; x++) { in_line++; }
+            if (in_line >= win_length)
+            {
+                return true;
+            }
+            // Check Up.
+            in_line = 1;
+            for (y = _y - 1; y >= 0 && board[_x, y] == symbol; y--) { in_line++; }
+            if (in_line >= win_length)
+            {
+                return true;
+            }
+            // Check Down.
+            in_line = 1;
+            for (y = _y + 1; y < size && board[_x, y] == symbol; y++) { in_line++; }
+            if (in_line >= win_length)
+            {
+                return true;
+            }
+            // Check Up-Left / Down-Right.
+            in_line = 1;
+            x = _x - 1;
+            y = _y - 1;
+            while (x >= 0 && y >= 0)
+            {
+                if (board[x, y] != symbol)
                 {
-                    game_won = false;
                     break;
                 }
+                in_line++;
+                x--;
+                y--;
             }
-            if (game_won)
+            x = _x + 1;
+            y = _y + 1;
+            while (x < size && y < size)
             {
-                return game_won;
-            }
-            // Check sideways.
-            game_won = true;
-            for (int i = 0; i < size; i++)
-            {
-                if (board[i, y] != player_symbols[player])
+                if (board[x, y] != symbol)
                 {
-                    game_won = false;
                     break;
                 }
+                in_line++;
+                x++;
+                y++;
             }
-            if (game_won)
+            if (in_line >= win_length)
             {
-                return game_won;
+                return true;
             }
-            // Check diagonals.
-            if (square % (size + 1) == 0 || (square % (size - 1)) == 0)
+            // Check Up-Right / Down-Left.
+            in_line = 1;
+            x = _x + 1;
+            y = _y - 1;
+            while (x < size && y >= 0)
             {
-                // If the above is true, then we are inside a diagonal square, isn't that neat?
-                game_won = true;
-                for (int i = 0; i < size; i++)
+                if (board[x, y] != symbol)
                 {
-                    if (board[i, i] != player_symbols[player])
-                    {
-                        game_won = false;
-                        break;
-                    }
+                    break;
                 }
-                if (game_won)
+                in_line++;
+                x++;
+                y--;
+            }
+            x = _x - 1;
+            y = _y + 1;
+            while (x >= 0 && y < size)
+            {
+                if (board[x, y] != symbol)
                 {
-                    return game_won;
+                    break;
                 }
-                game_won = true;
-                for (int i = 0; i < size; i++)
-                {
-                    if (board[i, (size - 1) - i] != player_symbols[player])
-                    {
-                        game_won = false;
-                        break;
-                    }
-                }
-                if (game_won)
-                {
-                    return game_won;
-                }
+                in_line++;
+                x--;
+                y++;
+            }
+            if (in_line >= win_length)
+            {
+                return true;
             }
             return false;
         }
@@ -150,7 +188,7 @@ namespace TicTacToe
                         // Print Player Markers.
                         int player = Array.IndexOf(player_symbols, board[x, y]);
                         set_color(player);
-                        cell_string = string.Format("{0}", new string(board[x, y], padding + 1));
+                        cell_string = string.Format("{0}", new string(board[x, y], padding));
                     }
                     else
                     {
