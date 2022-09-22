@@ -29,7 +29,7 @@ namespace TicTacToe
                     {
                         Console.Clear();
                         main_board.print_board();
-                        Console.WriteLine("Please enter a valid square number.");
+                        Console.WriteLine("Player {0} enter a valid square number.", turn % player_count);
                         input = Console.ReadLine();
                         try
                         {
