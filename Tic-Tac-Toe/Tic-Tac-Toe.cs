@@ -40,7 +40,9 @@ namespace TicTacToe
                     {
                         Console.Clear();
                         main_board.print_board();
+                        main_board.set_color(turn % player_count);
                         Console.WriteLine("Player {0} enter a valid square number.", turn % player_count);
+                        Console.ResetColor();
                         input = Console.ReadLine();
                         try
                         {
