@@ -4,12 +4,12 @@ namespace TicTacToe
 {
     class Board
     {
-        private static int size;
-        private static int players;
-        private static int win_length;
-        private static char[,] board;
-        private static int padding;
-        private static string middle_line;
+        private int size;
+        private int players;
+        private int win_length;
+        private char[,] board;
+        private int padding;
+        private string middle_line;
         // The player colors and symbols.
         private readonly char[] player_symbols = {
             'X', 'O',
