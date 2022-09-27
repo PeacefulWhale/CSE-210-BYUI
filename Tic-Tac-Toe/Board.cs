@@ -11,7 +11,7 @@ namespace TicTacToe
         private int padding;
         private string middle_line;
         // The player colors and symbols.
-        private readonly char[] player_symbols = {
+        private static readonly char[] player_symbols = {
             'X', 'O',
             '#', '@', '&', '%',
             'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'y', 'z',
