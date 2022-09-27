@@ -8,7 +8,8 @@ namespace Dice
         private readonly char[] dice_faces = {
             '\u2680', '\u2681', '\u2682', '\u2683', '\u2684', '\u2685'
         };
-        Random rnd;
+        private Random rnd;
+        private const int total_colors = 15;
         
         public Game(UInt64 _dc)
         {
@@ -54,17 +55,27 @@ namespace Dice
             Console.Write("You Rolled... ");
             for (int i = 0; i < 6; i++)
             {
+                set_color(i + 1);
                 Console.Write("{0} {1}", dice[i], dice_faces[i]);
                 if (i != 5)
                 {
                     Console.Write(", ");
                 }
+                Console.ResetColor();
             }
             // 0 - 1 - 2 - 3 - 4 - 5 - 6
-            Console.WriteLine("\nYou Scored: {0}", score);
+            Console.Write("\nYou Scored: ");
+            set_color(10);
+            Console.WriteLine("{0}", score);
+            Console.ResetColor();
             // I was testing to make sure that my method for random dice totals would actually worked.
             // Console.WriteLine("Total Dice: {0}", dice[0] + dice[1] + dice[2] + dice[3] + dice[4] + dice[5]);
             return score;
+        }
+
+        private void set_color(int color)
+        {
+            Console.ForegroundColor = (ConsoleColor)(color % total_colors);
         }
     }
 }
