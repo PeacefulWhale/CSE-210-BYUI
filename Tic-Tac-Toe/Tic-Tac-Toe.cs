@@ -57,7 +57,7 @@ namespace TicTacToe
                             break;
                         }
                     }
-                    if(main_board.play_turn(square_target, turn % player_count))
+                    if (main_board.play_turn(square_target, turn % player_count))
                     {
                         Console.Clear();
                         main_board.print_board();

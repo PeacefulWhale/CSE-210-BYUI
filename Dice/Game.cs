@@ -10,7 +10,7 @@ namespace Dice
         };
         private Random rnd;
         private const int total_colors = 15;
-        
+
         public Game(UInt64 _dc)
         {
             dice_count = _dc;
@@ -41,7 +41,7 @@ namespace Dice
                 {
                     UInt64 temp = numbers[i];
                     numbers[i] = numbers[i + 1];
-                    numbers[i + 1] = temp; 
+                    numbers[i + 1] = temp;
                 }
             }
             // Convert the numbers to dice counts.
