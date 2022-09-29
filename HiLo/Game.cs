@@ -2,6 +2,7 @@ using System;
 
 namespace HiLo
 {
+    // Main Game Class.
     class Game
     {
         private int score = 0;
@@ -16,14 +17,17 @@ namespace HiLo
             this.past_card = -1;
             this.guess = 0;
         }
+        // Main game loop.
         public void runGame()
         {
             while(true)
             {
                 int card = this.deck.drawCard();
+                // Logic for running out of cards.
                 if (card != -1)
                 {
                     Console.WriteLine("The card is {0} ({1}), and there are {2} cards remaining.", this.deck.getCard(card), card + 1, deck.totalCards() - deck.draw);
+                    // Logic for first turn.
                     if (past_card != -1 && this.guess != 0)
                     {
                         Console.WriteLine("The last card was {0} ({1})", this.deck.getCard(this.past_card), this.past_card + 1);
@@ -35,6 +39,7 @@ namespace HiLo
                         }
                         else
                         {
+                            // They guessed wrong.
                             this.score -= 75;
                             Console.WriteLine("You guessed incorrectly...");
                         }
@@ -45,6 +50,7 @@ namespace HiLo
                         }
                     }
                     this.past_card = card;
+                    // Logic to skip "next card" dialogue if there is no next card.
                     if (deck.draw < deck.totalCards())
                     {
                         Console.WriteLine("Would you like to guess the next card?");
@@ -52,6 +58,7 @@ namespace HiLo
                         if (input[0] == 'y' || input[0] == 'Y')
                         {
                             this.guess = 0;
+                            // User is forced to enter valid input. There is no escaping!
                             while(this.guess == 0)
                             {
                                 Console.WriteLine("Will the next card be higher (H) or lower (L) than {0} ({1})?", deck.getCard(card), card + 1);
@@ -93,6 +100,7 @@ namespace HiLo
     }
     class Deck
     {
+        // Unicode card faces.
         private static readonly string[] card_faces = {
             "🂡", "🂢", "🂣", "🂤", "🂥", "🂦", "🂨", "🂩", "🂪", "🂫", "🂬", "🂭", "🂮"
         };
@@ -120,6 +128,7 @@ namespace HiLo
                 this.deck[i] = temp;
             }
         }
+        // Simply returns the drawn card count.
         public int drawCard()
         {
             if (this.draw < total_cards)
@@ -128,6 +137,7 @@ namespace HiLo
             }
             else
             {
+                // There are no more cards to draw.
                 return -1;
             }
         }
