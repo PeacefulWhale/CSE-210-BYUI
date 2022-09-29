@@ -51,7 +51,8 @@ namespace Dice
                 dice[i] = numbers[i + 1] - numbers[i];
             }
             // Print the dice, and the total score.
-            UInt64 score = (50 * dice[0]) + (100 * dice[5]);
+            // 100 points for each 1, and 50 points for each 5.
+            UInt64 score = (100 * dice[0]) + (50 * dice[4]);
             Console.Write("You Rolled... ");
             for (int i = 0; i < 6; i++)
             {
@@ -63,7 +64,6 @@ namespace Dice
                 }
                 Console.ResetColor();
             }
-            // 0 - 1 - 2 - 3 - 4 - 5 - 6
             Console.Write("\nYou Scored: ");
             set_color(10);
             Console.WriteLine("{0}", score);
