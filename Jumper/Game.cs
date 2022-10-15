@@ -70,7 +70,12 @@ namespace Seeker
                 Console.WriteLine("Please enter your guess! [a-z]");
                 string input = Console.ReadLine();
                 char guess = input.ToUpper()[0];
-                if (this.guessed.Contains(guess))
+                // Validate data.
+                if (!Char.IsLetter(guess))
+                {
+                    Console.WriteLine("Please enter a letter!");
+                }
+                else if (this.guessed.Contains(guess))
                 {
                     Console.WriteLine("Guess a character you haven't guessed yet!");
                 }
