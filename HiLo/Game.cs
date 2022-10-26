@@ -53,6 +53,7 @@ namespace HiLo
                     // Logic to skip "next card" dialogue if there is no next card.
                     if (deck.draw < deck.totalCards())
                     {
+                        Console.WriteLine("You have {0} total points.", this.score);
                         Console.WriteLine("Would you like to guess the next card?");
                         string input = Console.ReadLine();
                         if (input[0] == 'y' || input[0] == 'Y')
